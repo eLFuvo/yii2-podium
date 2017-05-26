@@ -572,7 +572,7 @@ class User extends UserActiveRecord
             if ($allowCaching && empty($params) && isset($user->_access[$permissionName])) {
                 return $user->_access[$permissionName];
             }
-            $access = Podium::getInstance()->rbac->checkAccess($user->id, $permissionName, $params);
+            $access = Podium::getInstance()->rbac->checkAccess($user->inherited_id, $permissionName, $params);
             if ($allowCaching && empty($params)) {
                 $user->_access[$permissionName] = $access;
             }
