@@ -86,8 +86,9 @@ class PollActiveRecord extends ActiveRecord
         $this->editAnswers = array_unique($this->editAnswers);
         $filtered = [];
         foreach ($this->editAnswers as $answer) {
-            if (!empty(trim($answer))) {
-                $filtered[] = trim($answer);
+            $answer = trim($answer);
+            if (!empty($answer)) {
+                $filtered[] = $answer;
             }
         }
         $this->editAnswers = $filtered;

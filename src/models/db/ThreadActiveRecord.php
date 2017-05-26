@@ -150,8 +150,9 @@ class ThreadActiveRecord extends ActiveRecord
             $this->pollAnswers = array_unique($this->pollAnswers);
             $filtered = [];
             foreach ($this->pollAnswers as $answer) {
-                if (!empty(trim($answer))) {
-                    $filtered[] = trim($answer);
+                $answer = trim($answer);
+                if (!empty($answer)) {
+                    $filtered[] = $answer;
                 }
             }
             $this->pollAnswers = $filtered;
@@ -257,9 +258,9 @@ class ThreadActiveRecord extends ActiveRecord
     public function getFirstNewNotSeen()
     {
         return $this
-                ->hasOne(Post::className(), ['thread_id' => 'id'])
-                ->where(['>', 'created_at', $this->userView ? $this->userView->new_last_seen : 0])
-                ->orderBy(['id' => SORT_ASC]);
+            ->hasOne(Post::className(), ['thread_id' => 'id'])
+            ->where(['>', 'created_at', $this->userView ? $this->userView->new_last_seen : 0])
+            ->orderBy(['id' => SORT_ASC]);
     }
 
     /**
@@ -269,9 +270,9 @@ class ThreadActiveRecord extends ActiveRecord
     public function getFirstEditedNotSeen()
     {
         return $this
-                ->hasOne(Post::className(), ['thread_id' => 'id'])
-                ->where(['>', 'edited_at', $this->userView ? $this->userView->edited_last_seen : 0])
-                ->orderBy(['id' => SORT_ASC]);
+            ->hasOne(Post::className(), ['thread_id' => 'id'])
+            ->where(['>', 'edited_at', $this->userView ? $this->userView->edited_last_seen : 0])
+            ->orderBy(['id' => SORT_ASC]);
     }
 
     /**
