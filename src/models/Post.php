@@ -335,7 +335,7 @@ class Post extends PostActiveRecord
                     'id' => $post->id,
                     'title' => $post->thread->name,
                     'created' => $post->created_at,
-                    'author' => $post->author->podiumTag
+                    'author' => $post->author ? $post->author->podiumTag : null,
                 ];
             }
             Podium::getInstance()->podiumCache->setElement('forum.latestposts', $cacheKey, $latest);
