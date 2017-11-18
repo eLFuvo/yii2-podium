@@ -29,7 +29,9 @@ class Post extends PostActiveRecord
      */
     public static function getLatestPostsForMembers($limit = 5)
     {
-        return static::find()->orderBy(['created_at' => SORT_DESC])->limit($limit)->all();
+        return static::find()
+            ->joinWith('author', false, 'INNER JOIN')
+            ->orderBy(['created_at' => SORT_DESC])->limit($limit)->all();
     }
 
     /**
@@ -39,7 +41,9 @@ class Post extends PostActiveRecord
      */
     public static function getLatestPostsForGuests($limit = 5)
     {
-        return static::find()->joinWith(['forum' => function ($query) {
+        return static::find()
+            ->joinWith('author', false, 'INNER JOIN')
+            ->joinWith(['forum' => function ($query) {
             $query->andWhere([Forum::tableName() . '.visible' => 1])->joinWith(['category' => function ($query) {
                 $query->andWhere([Category::tableName() . '.visible' => 1]);
             }]);
