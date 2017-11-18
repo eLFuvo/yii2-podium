@@ -21,10 +21,10 @@ use yii\helpers\Url;
 <td class="text-right"><?= $model->threads ?></td>
 <td class="text-right"><?= $model->posts ?></td>
 <td>
-<?php if (!empty($model->latest) && !empty($model->latest->thread)): ?>
+<?php if (!empty($model->latest) && !empty($model->latest->author) && !empty($model->latest->thread)): ?>
     <a href="<?= Url::to(['forum/show', 'id' => $model->latest->id]) ?>" class="center-block"><?= Html::encode($model->latest->thread->name) ?></a>
     <small>
-        <?= $model->latest->author->podiumTag ?>
+        <?= $model->latest->author->podiumTag; ?>
         <span class="hidden-xs"><?= Podium::getInstance()->formatter->asDatetime($model->latest->created_at, 'medium') ?></span>
         <span class="hidden-sm hidden-md hidden-lg"><?= Podium::getInstance()->formatter->asDatetime($model->latest->created_at, 'short') ?></span>
     </small>
