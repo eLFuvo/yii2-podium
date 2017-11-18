@@ -45,13 +45,16 @@ class Thread extends ThreadActiveRecord
      */
     public function firstToSee()
     {
-        if ($this->firstNewNotSeen) {
+        if ($this->firstNewNotSeen && $this->firstNewNotSeen->author) {
             return $this->firstNewNotSeen;
         }
-        if ($this->firstEditedNotSeen) {
+        if ($this->firstEditedNotSeen && $this->firstEditedNotSeen->author) {
             return $this->firstEditedNotSeen;
         }
-        return $this->latest;
+        if ($this->latest && $this->latest->author) {
+            return $this->latest;
+        }
+        return null;
     }
 
     /**
